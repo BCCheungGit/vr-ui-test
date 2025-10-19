@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { Container } from "@react-three/uikit";
+import { Text, Container } from "@react-three/uikit";
+import { colors, Button } from "@react-three/uikit-default";
 
 export default function App() {
   return (
@@ -10,14 +11,20 @@ export default function App() {
     >
       <OrbitControls />
       <Container
-        backgroundColor="white"
+        backgroundColor={colors.background}
         sizeX={8}
         sizeY={4}
         flexDirection="row"
         borderWidth={5}
         borderColor="black"
         borderRadius={10}
-      ></Container>
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Button onClick={() => console.log("Button Clicked")}>
+          <Text>Test Button</Text>
+        </Button>
+      </Container>
     </Canvas>
   );
 }
