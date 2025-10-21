@@ -1,14 +1,11 @@
 import {
   Button,
-  Label,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-  VanillaDialog,
 } from "@react-three/uikit-default";
 import { Text } from "@react-three/uikit";
 
