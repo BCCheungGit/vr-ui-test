@@ -27,9 +27,6 @@ export default function App() {
         justifyContent="center"
       >
         <DialogDemo dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />{" "}
-        <Button onClick={() => console.log("Button Clicked")}>
-          <Text>Test Button</Text>
-        </Button>
         <Button
           onClick={() => {
             console.log("dialog open");
@@ -39,6 +36,35 @@ export default function App() {
           <Text>Open Dialog</Text>
         </Button>
         <Slider defaultValue={50} max={100} step={1} maxWidth="50%" />
+        <Container
+          sizeX={6}
+          sizeY={2.5}
+          overflow="scroll"
+          borderWidth={2}
+          borderColor="gray"
+          borderRadius={8}
+          backgroundColor={colors.surface}
+          padding={10}
+          flexDirection="column"
+          gapRow={10}
+        >
+          {Array.from({ length: 20 }).map((_, i) => (
+            <Container
+              key={i}
+              sizeX="100%"
+              sizeY={0.3}
+              backgroundColor={colors.primary}
+              borderRadius={5}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Text color={colors.textOnPrimary}>Test stuff</Text>
+            </Container>
+          ))}
+          <Button>
+            <Text>Next Page</Text>
+          </Button>
+        </Container>
       </Container>
     </Canvas>
   );
