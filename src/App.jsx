@@ -5,15 +5,73 @@ import { colors, Button, Slider } from "@react-three/uikit-default";
 import { useState } from "react";
 import { DialogDemo } from "./components/DialogDemo";
 
-export default function App() {
+function PageOne({ currentPage, setCurrentPage }) {
+  return (
+    <>
+      <Text color="white">Page One</Text>
+      <Container
+        sizeX={6}
+        sizeY={2.5}
+        overflow="scroll"
+        borderWidth={2}
+        borderColor="gray"
+        borderRadius={8}
+        backgroundColor={colors.surface}
+        padding={10}
+        flexDirection="column"
+        gapRow={10}
+      >
+        {Array.from({ length: 20 }).map((_, i) => (
+          <Container
+            key={i}
+            sizeX="100%"
+            sizeY={0.3}
+            backgroundColor={colors.primary}
+            borderRadius={5}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text color={colors.textOnPrimary}>Test stuff</Text>
+          </Container>
+        ))}
+        <Button onClick={() => setCurrentPage(2)}>
+          <Text>Next Page</Text>
+        </Button>
+      </Container>
+    </>
+  );
+}
+
+function PageTwo({ currentPage, setCurrentPage }) {
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  return (
+    <>
+      <Text>Page Two</Text>
+      <DialogDemo dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />{" "}
+      <Button
+        onClick={() => {
+          console.log("dialog open");
+          setDialogOpen(true);
+        }}
+      >
+        <Text>Open Dialog</Text>
+      </Button>
+      <Button onClick={() => setCurrentPage(1)}>
+        <Text>Go Back</Text>
+      </Button>
+    </>
+  );
+}
+
+export default function App() {
+  const [currentPage, setCurrentPage] = useState(1);
   return (
     <Canvas
       style={{ position: "absolute", inset: "0", touchAction: "none" }}
       gl={{ localClippingEnabled: true }}
     >
       <OrbitControls />
-
       <Container
         backgroundColor={colors.background}
         sizeX={8}
@@ -26,45 +84,11 @@ export default function App() {
         alignItems="center"
         justifyContent="center"
       >
-        <DialogDemo dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />{" "}
-        <Button
-          onClick={() => {
-            console.log("dialog open");
-            setDialogOpen(true);
-          }}
-        >
-          <Text>Open Dialog</Text>
-        </Button>
-        <Slider defaultValue={50} max={100} step={1} maxWidth="50%" />
-        <Container
-          sizeX={6}
-          sizeY={2.5}
-          overflow="scroll"
-          borderWidth={2}
-          borderColor="gray"
-          borderRadius={8}
-          backgroundColor={colors.surface}
-          padding={10}
-          flexDirection="column"
-          gapRow={10}
-        >
-          {Array.from({ length: 20 }).map((_, i) => (
-            <Container
-              key={i}
-              sizeX="100%"
-              sizeY={0.3}
-              backgroundColor={colors.primary}
-              borderRadius={5}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Text color={colors.textOnPrimary}>Test stuff</Text>
-            </Container>
-          ))}
-          <Button>
-            <Text>Next Page</Text>
-          </Button>
-        </Container>
+        {currentPage == 1 ? (
+          <PageOne currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        ) : (
+          <PageTwo currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        )}
       </Container>
     </Canvas>
   );
