@@ -67,29 +67,59 @@ function PageTwo({ currentPage, setCurrentPage }) {
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   return (
-    <Canvas
-      style={{ position: "absolute", inset: "0", touchAction: "none" }}
-      gl={{ localClippingEnabled: true }}
-    >
-      <OrbitControls />
-      <Container
-        backgroundColor={colors.background}
-        sizeX={8}
-        sizeY={4}
-        flexDirection="column"
-        borderWidth={5}
-        borderColor="black"
-        gapRow={30}
-        borderRadius={10}
-        alignItems="center"
-        justifyContent="center"
+    <div style={{ position: "relative", width: "100vw", height: "100vh" }}>
+      <Canvas
+        style={{ position: "absolute", inset: "0", touchAction: "none" }}
+        gl={{ localClippingEnabled: true }}
       >
-        {currentPage == 1 ? (
-          <PageOne currentPage={currentPage} setCurrentPage={setCurrentPage} />
-        ) : (
-          <PageTwo currentPage={currentPage} setCurrentPage={setCurrentPage} />
-        )}
-      </Container>
-    </Canvas>
+        <OrbitControls />
+        <Container
+          backgroundColor={colors.background}
+          sizeX={8}
+          sizeY={4}
+          flexDirection="column"
+          borderWidth={5}
+          borderColor="black"
+          gapRow={30}
+          borderRadius={10}
+          alignItems="center"
+          justifyContent="center"
+        >
+          {currentPage === 1 ? (
+            <PageOne setCurrentPage={setCurrentPage} />
+          ) : (
+            <PageTwo setCurrentPage={setCurrentPage} />
+          )}
+        </Container>
+      </Canvas>
+
+      <div
+        style={{
+          position: "absolute",
+          top: "1rem",
+          left: "1rem",
+          display: "flex",
+          gap: "0.5rem",
+          background: "rgba(0,0,0,0.3)",
+          padding: "0.5rem 1rem",
+          borderRadius: "8px",
+        }}
+      >
+        <button
+          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          disabled={currentPage === 1}
+          style={{ padding: "0.4rem 0.8rem" }}
+        >
+          ← Back
+        </button>
+        <button
+          onClick={() => setCurrentPage((p) => Math.min(2, p + 1))}
+          disabled={currentPage === 2}
+          style={{ padding: "0.4rem 0.8rem" }}
+        >
+          Next →
+        </button>
+      </div>
+    </div>
   );
 }
